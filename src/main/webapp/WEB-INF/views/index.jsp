@@ -15,27 +15,25 @@
 <body>
 <div class="container pt-3">
     <div class="row">
-        Hello : ${user}
-    </div>
-
-    <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                Покупатели
+                Аварии
             </div>
             <div class="card-body">
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">Имя</th>
+                        <th scope="col">Наименование</th>
+                        <th scope="col">Описание</th>
+                        <th scope="col">Адрес</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${customers}" var="customer">
+                    <c:forEach items="${accidents}" var="accident">
                     <tr>
-                        <td>
-                            <c:out value="${customer}"/>
-                        </td>
+                        <td><c:out value="${accident.name}"/></td>
+                        <td><c:out value="${accident.text}"/></td>
+                        <td><c:out value="${accident.address}"/></td>
                     </tr>
                     </c:forEach>
                     </tbody>
