@@ -4,48 +4,45 @@ import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
-import ru.job4j.accident.repository.AccidentMem;
+import ru.job4j.accident.repository.AccidentJdbcTemplate;
 
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.Comparator;
-import java.util.stream.Collectors;
 
 @Service
 public class AccidentService {
 
-    private final AccidentMem accidentMem;
+    private final AccidentJdbcTemplate accidentStore;
 
-    public AccidentService(AccidentMem accidentMem) {
-        this.accidentMem = accidentMem;
+    public AccidentService(AccidentJdbcTemplate accidentStore) {
+        this.accidentStore = accidentStore;
     }
 
     public void saveAccident(Accident accident) {
-        accidentMem.saveAccident(accident);
+        accidentStore.saveAccident(accident);
     }
 
     public Accident findAccidentById(int id) {
-        return accidentMem.findAccidentById(id);
+        return accidentStore.findAccidentById(id);
     }
 
-    public Rule findRuleById(int id) {
-        return accidentMem.findRuleById(id);
+    public void initAccidentRules(Accident accident, String[] ruleIds) {
+        int[] ids = Arrays.stream(ruleIds)
+                .mapToInt(Integer::parseInt)
+                .toArray();
+        accidentStore.findRulesByIds(ids)
+                        .forEach(accident::addRule);
     }
 
     public Collection<Accident> findAllAccidents() {
-        return accidentMem.findAllAccidents().stream()
-                .sorted(Comparator.comparing(Accident::getId))
-                .collect(Collectors.toList());
+        return accidentStore.findAllAccidents();
     }
 
     public Collection<AccidentType> findAllAccidentTypes() {
-        return accidentMem.findAllAccidentTypes().stream()
-                .sorted(Comparator.comparing(AccidentType::getId))
-                .collect(Collectors.toList());
+        return accidentStore.findAllAccidentTypes();
     }
 
     public Collection<Rule> findAllRules() {
-        return accidentMem.findAllRules().stream()
-                .sorted(Comparator.comparing(Rule::getId))
-                .collect(Collectors.toList());
+        return accidentStore.findAllRules();
     }
 }
