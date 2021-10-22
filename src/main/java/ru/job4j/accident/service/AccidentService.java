@@ -2,6 +2,7 @@ package ru.job4j.accident.service;
 
 import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.Accident;
+import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.repository.AccidentMem;
 
 import java.util.Collection;
@@ -17,17 +18,23 @@ public class AccidentService {
         this.accidentMem = accidentMem;
     }
 
-    public void save(Accident accident) {
-        accidentMem.save(accident);
+    public void saveAccident(Accident accident) {
+        accidentMem.saveAccident(accident);
     }
 
-    public Accident findById(int id) {
-        return accidentMem.findById(id);
+    public Accident findAccidentById(int id) {
+        return accidentMem.findAccidentById(id);
     }
 
-    public Collection<Accident> findAll() {
-        return accidentMem.findAll().stream()
+    public Collection<Accident> findAllAccidents() {
+        return accidentMem.findAllAccidents().stream()
                 .sorted(Comparator.comparing(Accident::getId))
+                .collect(Collectors.toList());
+    }
+
+    public Collection<AccidentType> findAllAccidentTypes() {
+        return accidentMem.findAllAccidentTypes().stream()
+                .sorted(Comparator.comparing(AccidentType::getId))
                 .collect(Collectors.toList());
     }
 }

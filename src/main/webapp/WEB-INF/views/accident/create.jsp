@@ -30,16 +30,24 @@
             <div class="card-body">
                 <form action="<c:url value='/save'/>" method='POST'>
                     <div class="form-group">
-                        <label>Название</label>
+                        <label>Название:</label>
                         <input type="text" class="form-control" name="name" required>
                     </div>
                     <div class="form-group">
-                        <label>Описание</label>
+                        <label>Описание:</label>
                         <input type="text" class="form-control" name="text" required>
                     </div>
                     <div class="form-group">
-                        <label>Адрес</label>
+                        <label>Адрес:</label>
                         <input type="text" class="form-control" name="address" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Тип:</label>
+                        <select class="custom-select input-sm" name="type.id">
+                            <c:forEach var="type" items="${types}" >
+                                <option value="${type.id}">${type.name}</option>
+                            </c:forEach>
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>
