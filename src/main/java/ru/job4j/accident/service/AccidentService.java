@@ -17,6 +17,14 @@ public class AccidentService {
         this.accidentMem = accidentMem;
     }
 
+    public void save(Accident accident) {
+        accidentMem.save(accident);
+    }
+
+    public Accident findById(int id) {
+        return accidentMem.findById(id);
+    }
+
     public Collection<Accident> findAll() {
         return accidentMem.findAll().stream()
                 .sorted(Comparator.comparing(Accident::getId))

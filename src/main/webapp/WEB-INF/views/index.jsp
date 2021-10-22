@@ -9,38 +9,38 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <title>Accident</title>
 </head>
 <body>
-<div class="container pt-3">
-    <div class="row">
-        <div class="card" style="width: 100%">
-            <div class="card-header">
-                Аварии
-            </div>
-            <div class="card-body">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Наименование</th>
-                        <th scope="col">Описание</th>
-                        <th scope="col">Адрес</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach items="${accidents}" var="accident">
-                    <tr>
-                        <td><c:out value="${accident.name}"/></td>
-                        <td><c:out value="${accident.text}"/></td>
-                        <td><c:out value="${accident.address}"/></td>
-                    </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+<div class="container">
+
+    <ul class="nav justify-content-end">
+        <li class="nav-item "><a class="nav-link" href="<c:url value='/'/>">Главная</a></li>
+        <li class="nav-item"><a class="nav-link" href="<c:url value='/create'/>"> Добавить инцидент</a></li>
+    </ul>
+
+    <hr class="my-4">
+
+    <table class="table table-hover mb-0" id="table">
+        <thead>
+        <tr>
+            <th scope="col">Название</th>
+            <th scope="col">Описание</th>
+            <th scope="col">Адрес</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${accidents}" var="accident">
+            <tr>
+                <td><c:out value="${accident.name}"/></td>
+                <td><c:out value="${accident.text}"/></td>
+                <td><c:out value="${accident.address}"/></td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>
