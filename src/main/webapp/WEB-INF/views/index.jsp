@@ -26,6 +26,7 @@
     <table class="table table-hover mb-0" id="table">
         <thead>
         <tr>
+            <th scope="col"></th>
             <th scope="col">Название</th>
             <th scope="col">Описание</th>
             <th scope="col">Адрес</th>
@@ -34,6 +35,11 @@
         <tbody>
         <c:forEach items="${accidents}" var="accident">
             <tr>
+                <td>
+                    <a href='<c:url value="/edit?id=${accident.id}"/>'>
+                        <i class="fa fa-edit mr-3"></i>
+                    </a>
+                </td>
                 <td><c:out value="${accident.name}"/></td>
                 <td><c:out value="${accident.text}"/></td>
                 <td><c:out value="${accident.address}"/></td>

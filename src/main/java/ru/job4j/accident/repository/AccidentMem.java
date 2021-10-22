@@ -44,7 +44,9 @@ public class AccidentMem {
     }
 
     public void save(Accident accident) {
-        accident.setId(ids.incrementAndGet());
+        if (accident.getId() == 0) {
+            accident.setId(ids.incrementAndGet());
+        }
         accidents.put(accident.getId(), accident);
     }
 
