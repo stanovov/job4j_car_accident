@@ -18,15 +18,20 @@ import javax.sql.DataSource;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
+    PasswordEncoder passwordEncoder;
+
+    @Autowired
     DataSource ds;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-                .dataSource(ds)
-                .withUser(User.withUsername("user")
-                        .password(passwordEncoder().encode("123456"))
-                        .roles("USER"));
+        auth.jdbcAuthentication().dataSource(ds)
+                        .usersByUsernameQuery("SELECT username, password, enabled "
+                                            + "FROM users "
+                                            + "WHERE username = ?")
+                        .authoritiesByUsernameQuery("SELECT u.username, a.authority "
+                                                  + "FROM authorities AS a, users AS u "
+                                                  + "WHERE u.username = ? AND u.authority_id = a.id");
     }
 
     @Bean
@@ -37,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/login")
+                .antMatchers("/login", "/reg")
                 .permitAll()
                 .antMatchers("/**")
                 .hasAnyRole("ADMIN", "USER")
