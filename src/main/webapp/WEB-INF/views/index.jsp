@@ -19,6 +19,7 @@
     <ul class="nav justify-content-end">
         <li class="nav-item "><a class="nav-link" href="<c:url value='/'/>">Главная</a></li>
         <li class="nav-item"><a class="nav-link" href="<c:url value='/create'/>"> Добавить инцидент</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">${user.username}</a></li>
     </ul>
 
     <hr class="my-4">
