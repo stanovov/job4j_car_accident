@@ -34,6 +34,11 @@
                     <button type="submit" class="btn btn-primary pull-left">Зарегистрировать</button>
                     <button type="submit" class="btn btn-light pull-right m1-2" formaction="<c:url value='/login'/>"
                             formmethod="GET" formnovalidate>Отмена</button>
+                    <c:if test="${not empty errorMessage}">
+                        <div style="color:red; font-weight: bold; margin: 30px 0px;">
+                                ${errorMessage}
+                        </div>
+                    </c:if>
                 </form>
             </div>
         </div>
